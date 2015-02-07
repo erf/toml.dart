@@ -199,13 +199,13 @@ class TomlGrammar extends GrammarDefinition {
   // -----------------------------------------------------------------
    
   datetime() => ref(token, _datetime);
-  _datetime() => ref(fullDate) & char('T') & ref(fullTime);
+  _datetime() => ref(fullDate) & (char('T') & ref(fullTime)).optional();
   
   fullDate() => ref(dddd) & char('-') & 
                 ref(dd) & char('-') & 
                 ref(dd);
   
-  fullTime() => ref(partialTime) & ref(timeOffset);  
+  fullTime() => ref(partialTime) & ref(timeOffset).optional();  
   partialTime() => ref(dd) & char(':') & 
                    ref(dd) & char(':') & 
                    ref(dd) & (char('.') & digit().repeat(1, 6)).optional();
