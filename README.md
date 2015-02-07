@@ -186,7 +186,26 @@ array = [1.0, 2.0, 3.141]
   
 **Boolean** values are obviously of type `bool`. 
 
-**Datetime** values are UTC `DateTime` objects.
+**Datetime** values are represented as `DateTime` objects.
+If they are expressed using the 
+[RFC 3339](http://tools.ietf.org/html/rfc3339) 
+spec they are anchored in the UTC time zone, otherwise they are in the local 
+time zone.
+The time defaults to 00:00:00 and has millisecond precision.
+Thus fractional seconds are rounded to the third decimal place.
+All of the following datetimes are therefore equivalent:
+```toml
+1979-05-27T00:32:01
+1979-05-27T00:32:00.999999
+1979-05-27T00:32:00.99999
+1979-05-27T00:32:00.9999
+```
+But these are not:
+```toml
+1979-05-27T00:32:00.999
+1979-05-27T00:32:00.99
+1979-05-27T00:32:00.9
+```
 
 ## Examples
 
