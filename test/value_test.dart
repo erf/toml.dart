@@ -117,16 +117,30 @@ main() {
     
     test('Datetime', () {
       var cases = {
+        // RFC 3339
         '1979-05-27T07:32:00Z': new DateTime.utc(
-            1979, 5,27, 7,32, 0
+            1979, 5, 27, 7, 32, 0
         ),  
         '1979-05-27T00:32:00-07:00'
         : new DateTime.utc(
-            1979, 5,27, 0,32, 0
+            1979, 5, 27, 0, 32, 0
         ).add(new Duration(hours: 7)),
         '1979-05-27T00:32:00.999999-07:00': new DateTime.utc(
-            1979, 5,27, 0,32, 1,0 // round(0.999999) = 1
-        ).add(new Duration(hours: 7))
+            1979, 5, 27, 0, 32, 1, 0 // round(0.999999) = 1
+        ).add(new Duration(hours: 7)),
+        
+        // optional local offset
+        '1979-05-27T07:32:00': new DateTime(
+            1979, 5, 27, 7, 32, 0
+        ),
+        '1979-05-27T00:32:00.999999': new DateTime(
+            1979, 5, 27, 0, 32, 1, 0 // round(0.999999) = 1
+        ),
+        
+        // optional time
+        '1979-05-27': new DateTime(
+            1979, 5, 27
+        )
       };
       cases.forEach(valueTester);
     });
